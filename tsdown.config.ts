@@ -1,0 +1,20 @@
+import { defineConfig } from 'tsdown'
+import {execSync} from 'child_process';
+
+
+export default defineConfig({
+  entry: [
+    'src/index.ts',
+  ],
+  format: ['cjs'],
+  shims: false,
+  dts: false,
+  external: [
+    'vscode',
+  ],
+  hooks(hooks) {
+    hooks.hookOnce('build:prepare', () => {
+      execSync('nr update')
+    })
+  },
+})
